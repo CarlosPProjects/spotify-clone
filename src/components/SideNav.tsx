@@ -5,7 +5,6 @@ import Image from "next/image";
 import Box from "./Box";
 import { usePathname } from "next/navigation";
 import {
-  LuSearch,
   LuHome,
   LuPodcast,
   LuLibrary,
@@ -13,6 +12,7 @@ import {
   LuPlayCircle,
   LuMusic2,
 } from "react-icons/lu";
+import { RiSearch2Line } from "react-icons/ri";
 import SidebarItem from "./SidebarItem";
 
 interface SidenavProps {
@@ -70,8 +70,8 @@ const SideNav: FC<SidenavProps> = ({ children }) => {
   );
 
   return (
-    <div className="flex h-full sm:p-2 p-4 bg-[url('/images/bg-home.webp')] bg-cover bg-no-repeat bg-center">
-      <div className="hidden md:flex flex-col w-[300px] p-5 gap-y-6 border-r border-neutral-400/50 rounded-tl-2xl rounded-bl-2xl bg-stone-800/70 backdrop-blur">
+    <div className="flex h-full md:p-4 p-0 bg-[url('/images/bg-home.webp')] bg-cover bg-no-repeat bg-center">
+      <div className="hidden overflow-y-auto md:flex flex-col w-[300px] p-5 gap-y-6 border-r border-neutral-400/40 rounded-tl-2xl rounded-bl-2xl bg-stone-800/70 backdrop-blur">
         <Box>
           <Image
             src="/images/logo.png"
@@ -87,24 +87,25 @@ const SideNav: FC<SidenavProps> = ({ children }) => {
         justify-between  
         items-center 
         rounded-full 
-        bg-neutral-400/60
-        py-2 px-4 
+        bg-neutral-400/30
+        border
+        border-neutral-400/40
+        py-3 px-4 
         backdrop-blur
         mt-2
         "
           >
-            <LuSearch size={26} />
+            <RiSearch2Line size={26} />
             <form action="" method="post">
               <input
                 type="text"
                 placeholder="Search ..."
                 className="
-            text-xl
+            text-base
             bg-transparent
             outline-none
             placeholder:text-neutral-300
             h-fit
-            max-w-[160px]
             "
               />
             </form>
@@ -125,7 +126,7 @@ const SideNav: FC<SidenavProps> = ({ children }) => {
           </div>
         </Box>
         <Box>
-        <div
+          <div
             className="
           flex
           flex-col
@@ -139,9 +140,9 @@ const SideNav: FC<SidenavProps> = ({ children }) => {
           </div>
         </Box>
       </div>
-      <div className="flex flex-1 p-5 rounded-tr-2xl rounded-br-2xl bg-stone-800/70 backdrop-blur">
+      <main className="h-full flex-1 md:p-5 p-2 overflow-hidden overflow-y-auto rounded-none md:rounded-tr-2xl md:rounded-br-2xl bg-stone-800/70 backdrop-blur">
         {children}
-      </div>
+      </main>
     </div>
   );
 };
