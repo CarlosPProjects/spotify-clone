@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { FC, Fragment } from "react";
 import { twMerge } from "tailwind-merge";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { BiChevronLeft, BiChevronRight, BiUser } from "react-icons/bi";
 import { usePathname } from "next/navigation";
 import Button from "./Button";
 import Box from "./Box";
@@ -41,8 +41,25 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
             flex
             items-center
             justify-between
+            flex-wrap
         "
       >
+        <div
+          className="
+                flex
+                md:hidden
+                items-center
+            "
+        >
+          <Box className="p-0">
+            <Image
+              src="/images/mobile-logo.png"
+              alt="Spotify Logo"
+              width={50}
+              height={50}
+            />
+          </Box>
+        </div>
         {pathname !== "/" ? (
           <div
             className="
@@ -89,34 +106,35 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
         ) : (
           <>
             <span className="hidden md:block">Home</span>
-            <div
-              className="
-                flex
-                md:hidden
-                items-center
-            "
-            >
-              <Box className="p-0">
-                <Image
-                  src="/images/mobile-logo.png"
-                  alt="Spotify Logo"
-                  width={50}
-                  height={50}
-                />
-              </Box>
-            </div>
           </>
         )}
-        <div className="flex justify-between items-center gap-x-4">
+        <div className="flex justify-between items-center gap-x-2">
           <>
             <div>
-              <Button>
-                Sign Up
+              <Button
+                onClick={() => {}}
+                className="
+              bg-transparent
+              "
+              >
+                Register
+              </Button>
+            </div>
+            <div>
+              <Button
+                onClick={() => {}}
+                className="
+              bg-neutral-400/20
+              
+              "
+              >
+                Log in
               </Button>
             </div>
           </>
         </div>
       </div>
+      {children}
     </div>
   );
 };
