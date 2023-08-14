@@ -10,3 +10,9 @@ body,
   color-scheme: dark;
   font-weight: lighter;
 }
+
+@layer base{
+  ul li{
+    @apply hover:bg-neutral-500 rounded-[2px] px-3 py-2 text-sm;
+  }
+}

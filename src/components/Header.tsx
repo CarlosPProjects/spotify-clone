@@ -3,11 +3,18 @@
 import { useRouter } from "next/navigation";
 import { FC, Fragment } from "react";
 import { twMerge } from "tailwind-merge";
-import { BiChevronLeft, BiChevronRight, BiUser } from "react-icons/bi";
+import {
+  BiChevronLeft,
+  BiChevronRight,
+  BiUser,
+} from "react-icons/bi";
 import { usePathname } from "next/navigation";
 import Button from "./Button";
 import Box from "./Box";
 import Image from "next/image";
+import useAuthModal from "@/hooks/useAuthModalStore";
+import { useUser } from "@/hooks/useUser";
+import DropdownUser from "./DropdownUser";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -15,14 +22,13 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ children, className }) => {
+  const authModal = useAuthModal();
   const router = useRouter();
   const pathname = usePathname();
-
   const pathParts = pathname.split("/").filter((part) => part !== "");
-
-  const handleLogout = () => {
-    // Handle logout
-  };
+  
+  const { user, userDetails } = useUser();
+  
   return (
     <div
       className={twMerge(
@@ -109,29 +115,75 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
           </>
         )}
         <div className="flex justify-between items-center gap-x-2">
-          <>
-            <div>
-              <Button
-                onClick={() => {}}
+          {user ? (
+            <>
+              <Button className="mr-4" onClick={() => {}}>
+                Upgrade
+              </Button>
+
+              <div
                 className="
-              bg-transparent
+                relative
+                max-w-[36px]
+                max-h-[36px]
+                h-full
+                w-full
+                flex
+                justify-center
+                items-center
+                border
+                border-green-500
+                bg-neutral-400/20
+                rounded-full
               "
               >
-                Register
-              </Button>
-            </div>
-            <div>
-              <Button
-                onClick={() => {}}
-                className="
+                {userDetails?.avatar_url ? (
+                  <img
+                    className="
+                    rounded-full
+                    object-cover
+                    aspect-square
+                  "
+                    src={userDetails?.avatar_url}
+                    alt="User Avatar"
+                  />
+                ) : (
+                  <BiUser className="text-neutral-400 m-2" size={20} />
+                )}
+              </div>
+              <span className="text-white">
+                {userDetails?.first_name ?? "Carlos"}
+              </span>
+              {/* <Button className="p-0 bg-transparent">
+                <BiCaretDown className="text-neutral-400" size={16} />
+              </Button> */}
+              <DropdownUser/>
+            </>
+          ) : (
+            <>
+              <div>
+                <Button
+                  onClick={authModal.onOpen}
+                  className="
+              bg-transparent
+              "
+                >
+                  Register
+                </Button>
+              </div>
+              <div>
+                <Button
+                  onClick={authModal.onOpen}
+                  className="
               bg-neutral-400/20
               
               "
-              >
-                Log in
-              </Button>
-            </div>
-          </>
+                >
+                  Log in
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </div>
       {children}
