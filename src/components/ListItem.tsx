@@ -56,7 +56,7 @@ const ListItem: FC<ListItemProps> = ({ image, name, href }) => {
         rounded-full
         flex
         items-center
-        jusify-center
+        justify-center
         bg-green-500
         p-2
         drop-shadow-md

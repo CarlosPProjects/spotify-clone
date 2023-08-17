@@ -6,10 +6,14 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 
 import Button from "./Button";
+import { twMerge } from "tailwind-merge";
 
-interface DropdownUserProps {}
+interface DropdownUserProps {
+  children: React.ReactNode;
+  className?: string;
+}
 
-const DropdownUser: FC<DropdownUserProps> = ({}) => {
+const DropdownUser: FC<DropdownUserProps> = ({ children, className }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const router = useRouter();
@@ -29,13 +33,13 @@ const DropdownUser: FC<DropdownUserProps> = ({}) => {
     setShowDropdown(!showDropdown);
   };
   return (
-    <div className="relative">
+    <div className={twMerge(`relative`, className)}>
       <div onClick={toggleDropdown} className="cursor-pointer">
-        <BiCaretDown className="text-neutral-400" size={16} />
+        {children}
       </div>
 
       {showDropdown && (
-        <div className="absolute z-10 flex min-w-[196px] bg-neutral-800/50 border border-neutral-400/40 rounded-[2px] backdrop-blur right-0 mt-5">
+        <div className="absolute z-10 flex min-w-[196px] bg-neutral-800/50 border border-neutral-400/40 rounded-[2px] backdrop-blur right-0 mt-3 md:mt-5">
           <ul className="p-1 flex w-full flex-col">
             <li>
               <Button
@@ -56,7 +60,7 @@ const DropdownUser: FC<DropdownUserProps> = ({}) => {
             </li>
             <li>
               <Button
-                onClick={()=> router.push('/configuration')}
+                onClick={() => router.push("/configuration")}
                 className="w-full flex flex-row justify-between items-center p-0 bg-transparent"
               >
                 <span>Configuration</span>

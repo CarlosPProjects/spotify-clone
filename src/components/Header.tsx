@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { FC, Fragment } from "react";
 import { twMerge } from "tailwind-merge";
 import {
+  BiCaretDown,
   BiChevronLeft,
   BiChevronRight,
   BiUser,
@@ -17,7 +18,7 @@ import { useUser } from "@/hooks/useUser";
 import DropdownUser from "./DropdownUser";
 
 interface HeaderProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 
@@ -26,9 +27,9 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
   const router = useRouter();
   const pathname = usePathname();
   const pathParts = pathname.split("/").filter((part) => part !== "");
-  
+
   const { user, userDetails } = useUser();
-  
+
   return (
     <div
       className={twMerge(
@@ -117,7 +118,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
         <div className="flex justify-between items-center gap-x-2">
           {user ? (
             <>
-              <Button className="mr-4" onClick={() => {}}>
+              <Button className="mr-4 hidden lg:block" onClick={() => {}}>
                 Upgrade
               </Button>
 
@@ -126,15 +127,12 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
                 relative
                 max-w-[36px]
                 max-h-[36px]
-                h-full
-                w-full
-                flex
-                justify-center
-                items-center
+                hidden
                 border
                 border-green-500
                 bg-neutral-400/20
                 rounded-full
+                md:block
               "
               >
                 {userDetails?.avatar_url ? (
@@ -151,13 +149,37 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
                   <BiUser className="text-neutral-400 m-2" size={20} />
                 )}
               </div>
-              <span className="text-white">
+              <DropdownUser
+                className="
+                  max-w-[36px]
+                  max-h-[36px]
+                  border
+                  border-green-500
+                  bg-neutral-400/20
+                  rounded-full
+                  md:hidden
+                "
+              >
+                {userDetails?.avatar_url ? (
+                  <img
+                    className="
+                    rounded-full
+                    object-cover
+                    aspect-square
+                  "
+                    src={userDetails?.avatar_url}
+                    alt="User Avatar"
+                  />
+                ) : (
+                  <BiUser className="text-neutral-400 m-2" size={20} />
+                )}
+              </DropdownUser>
+              <span className="text-white hidden md:inline-block">
                 {userDetails?.first_name ?? "Carlos"}
               </span>
-              {/* <Button className="p-0 bg-transparent">
+              <DropdownUser className="hidden md:block">
                 <BiCaretDown className="text-neutral-400" size={16} />
-              </Button> */}
-              <DropdownUser/>
+              </DropdownUser>
             </>
           ) : (
             <>

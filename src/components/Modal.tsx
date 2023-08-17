@@ -32,9 +32,9 @@ const Modal: FC<ModalProps> = ({
           <Dialog.Content
             className="
                 fixed
-                drop-shadow-md
+                backdrop-blur
                 border
-                border-neutral-700
+                border-neutral-400/40
                 top-[50%]
                 left-[50%]
                 max-h-full
@@ -59,6 +59,7 @@ const Modal: FC<ModalProps> = ({
                 text-center
                 font-bold
                 mb-4
+                capitalize
             "
             >
               {title}

@@ -140,7 +140,7 @@ const SideNav: FC<SidenavProps> = ({ children }) => {
           </div>
         </Box>
       </div>
-      <main className="h-full flex-1 md:p-5 p-2 overflow-hidden overflow-y-auto rounded-none md:rounded-tr-2xl md:rounded-br-2xl bg-stone-800/70 backdrop-blur">
+      <main className="h-full flex-1 md:p-5 p-2 overflow-hidden overflow-y-auto bg-stone-800/70 backdrop-blur">
         {children}
       </main>
     </div>
